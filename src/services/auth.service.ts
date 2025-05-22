@@ -5,6 +5,7 @@ import { ERROR_MESSAGES, HTTP_STATUS } from "../constants";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
+// Create a new user
 export const createUser = async (email: string, password: string) => {
   // Check if user already exists
   const existingUser = await User.findOne({ email });
@@ -12,16 +13,15 @@ export const createUser = async (email: string, password: string) => {
     throw new AppError(ERROR_MESSAGES.USER_EXISTS, HTTP_STATUS.CONFLICT);
   }
 
-  // Create new user
   const user = new User({ email, password });
   await user.save();
 
-  // Generate token
   const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "1d" });
 
   return { user, token };
 };
 
+// Authenticate user
 export const authenticateUser = async (email: string, password: string) => {
   // Find user
   const user = await User.findOne({ email });

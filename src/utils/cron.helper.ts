@@ -2,6 +2,7 @@ import cron from "node-cron";
 import { cronService } from "../services";
 import { APP_CONSTANTS } from "../constants";
 
+// Function to set up CRON jobs
 export const setupCronJobs = (): void => {
   // Schedule CRON job to run at midnight every day
   cron.schedule(APP_CONSTANTS.CRON_MIDNIGHT, async () => {

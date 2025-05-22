@@ -76,6 +76,7 @@ export const getTodosByUserId = async (
   };
 };
 
+// Function to get a todo by its ID
 export const getTodoById = async (todoId: string, userId: string) => {
   if (!mongoose.Types.ObjectId.isValid(todoId)) {
     throw new AppError(ERROR_MESSAGES.INVALID_TODO_ID, HTTP_STATUS.BAD_REQUEST);
@@ -89,6 +90,7 @@ export const getTodoById = async (todoId: string, userId: string) => {
   return todo;
 };
 
+// Function to update a todo by its ID
 export const updateTodoById = async (
   todoId: string,
   userId: string,
@@ -113,6 +115,7 @@ export const updateTodoById = async (
   return todo;
 };
 
+// Function to delete a todo by its ID
 export const deleteTodoById = async (todoId: string, userId: string) => {
   if (!mongoose.Types.ObjectId.isValid(todoId)) {
     throw new AppError(ERROR_MESSAGES.INVALID_TODO_ID, HTTP_STATUS.BAD_REQUEST);
@@ -126,6 +129,7 @@ export const deleteTodoById = async (todoId: string, userId: string) => {
   return todo;
 };
 
+// Function to update expired todos
 export const updateExpiredTodos = async () => {
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);

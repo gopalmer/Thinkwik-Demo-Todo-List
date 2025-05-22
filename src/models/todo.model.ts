@@ -1,5 +1,6 @@
 import mongoose, { type Document, Schema } from "mongoose";
 
+// Todo schema definition
 export interface ITodo extends Document {
   title: string;
   description: string;

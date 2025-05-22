@@ -7,6 +7,7 @@ export interface IUser extends Document {
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
+// User schema definition
 const userSchema = new Schema(
   {
     email: {

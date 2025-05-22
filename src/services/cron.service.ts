@@ -1,5 +1,6 @@
 import { updateExpiredTodos } from "./todo.service";
 
+// This function is intended to be run as a cron job to update expired todos
 export const runExpiredTodosUpdate = async () => {
   console.log("Running expired todos update 123");
   try {

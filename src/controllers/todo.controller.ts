@@ -3,6 +3,7 @@ import type { AuthRequest } from "../middleware";
 import { todoService } from "../services";
 import { HTTP_STATUS, SUCCESS_MESSAGES, APP_CONSTANTS } from "../constants";
 
+// Function to create a new todo
 export const createTodo = async (
   req: AuthRequest,
   res: Response,
@@ -21,6 +22,7 @@ export const createTodo = async (
   }
 };
 
+// Function to get all todos for a user
 export const getTodos = async (
   req: AuthRequest,
   res: Response,
@@ -53,6 +55,7 @@ export const getTodos = async (
   }
 };
 
+// Function to get a todo by its ID
 export const getTodoById = async (
   req: AuthRequest,
   res: Response,
@@ -69,6 +72,7 @@ export const getTodoById = async (
   }
 };
 
+// Function to update a todo by its ID
 export const updateTodo = async (
   req: AuthRequest,
   res: Response,
@@ -88,6 +92,7 @@ export const updateTodo = async (
   }
 };
 
+// Function to delete a todo by its ID
 export const deleteTodo = async (
   req: AuthRequest,
   res: Response,

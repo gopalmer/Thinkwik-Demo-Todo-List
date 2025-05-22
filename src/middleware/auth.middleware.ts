@@ -9,6 +9,7 @@ export interface AuthRequest extends Request {
   userId?: string;
 }
 
+// Middleware to authenticate user using JWT
 export const authenticate = (
   req: AuthRequest,
   res: Response,

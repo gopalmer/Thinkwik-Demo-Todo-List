@@ -2,6 +2,8 @@ import type { Request, Response, NextFunction } from "express";
 import { authService } from "../services";
 import { HTTP_STATUS, SUCCESS_MESSAGES } from "../constants";
 
+
+// signup function to handle user registration
 export const signup = async (
   req: Request,
   res: Response,
@@ -21,6 +23,7 @@ export const signup = async (
   }
 };
 
+// login function to handle user authentication
 export const login = async (
   req: Request,
   res: Response,

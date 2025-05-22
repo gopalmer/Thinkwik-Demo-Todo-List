@@ -2,135 +2,253 @@
  * @swagger
  * components:
  *   schemas:
- *     User:
+ *     Todo:
  *       type: object
  *       required:
- *         - email
- *         - password
+ *         - title
+ *         - description
+ *         - dueDate
  *       properties:
  *         id:
  *           type: string
- *           description: The auto-generated id of the user
- *         email:
+ *           description: The auto-generated id of the todo
+ *         title:
  *           type: string
- *           format: email
- *           description: The user email
- *         password:
+ *           description: The title of the todo
+ *         description:
  *           type: string
- *           format: password
- *           description: The user password
+ *           description: The description of the todo
+ *         dueDate:
+ *           type: string
+ *           format: date-time
+ *           description: The due date of the todo
+ *         completed:
+ *           type: boolean
+ *           description: Whether the todo is completed
+ *         user:
+ *           type: string
+ *           description: The id of the user who created the todo
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: The date the todo was created
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: The date the todo was last updated
  *       example:
  *         id: 60d21b4667d0d8992e610c85
- *         email: user@example.com
- *         password: password123
- *     UserResponse:
+ *         title: Complete project
+ *         description: Finish the project by the deadline
+ *         dueDate: 2023-06-30T00:00:00.000Z
+ *         completed: false
+ *         user: 60d21b4667d0d8992e610c85
+ *         createdAt: 2023-06-01T00:00:00.000Z
+ *         updatedAt: 2023-06-01T00:00:00.000Z
+ *     TodoCreate:
+ *       type: object
+ *       required:
+ *         - title
+ *         - description
+ *         - dueDate
+ *       properties:
+ *         title:
+ *           type: string
+ *           description: The title of the todo
+ *         description:
+ *           type: string
+ *           description: The description of the todo
+ *         dueDate:
+ *           type: string
+ *           format: date-time
+ *           description: The due date of the todo
+ *       example:
+ *         title: Complete project
+ *         description: Finish the project by the deadline
+ *         dueDate: 2023-06-30T00:00:00.000Z
+ *     TodoUpdate:
  *       type: object
  *       properties:
- *         id:
+ *         title:
  *           type: string
- *           description: The auto-generated id of the user
- *         email:
+ *           description: The title of the todo
+ *         description:
  *           type: string
- *           format: email
- *           description: The user email
+ *           description: The description of the todo
+ *         dueDate:
+ *           type: string
+ *           format: date-time
+ *           description: The due date of the todo
+ *         completed:
+ *           type: boolean
+ *           description: Whether the todo is completed
  *       example:
- *         id: 60d21b4667d0d8992e610c85
- *         email: user@example.com
- *     AuthResponse:
+ *         title: Updated project
+ *         description: Updated description
+ *         dueDate: 2023-07-15T00:00:00.000Z
+ *         completed: true
+ *     TodoResponse:
  *       type: object
  *       properties:
  *         message:
  *           type: string
  *           description: Success message
- *         token:
- *           type: string
- *           description: JWT token
- *         user:
- *           $ref: '#/components/schemas/UserResponse'
+ *         todo:
+ *           $ref: '#/components/schemas/Todo'
  *       example:
- *         message: Login successful
- *         token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
- *         user:
+ *         message: Todo created successfully
+ *         todo:
  *           id: 60d21b4667d0d8992e610c85
- *           email: user@example.com
- *     LoginRequest:
+ *           title: Complete project
+ *           description: Finish the project by the deadline
+ *           dueDate: 2023-06-30T00:00:00.000Z
+ *           completed: false
+ *           user: 60d21b4667d0d8992e610c85
+ *           createdAt: 2023-06-01T00:00:00.000Z
+ *           updatedAt: 2023-06-01T00:00:00.000Z
+ *     TodosResponse:
  *       type: object
- *       required:
- *         - email
- *         - password
  *       properties:
- *         email:
- *           type: string
- *           format: email
- *           description: The user email
- *         password:
- *           type: string
- *           format: password
- *           description: The user password
+ *         todos:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Todo'
+ *         pagination:
+ *           type: object
+ *           properties:
+ *             total:
+ *               type: number
+ *               description: Total number of todos
+ *             page:
+ *               type: number
+ *               description: Current page
+ *             limit:
+ *               type: number
+ *               description: Number of todos per page
+ *             pages:
+ *               type: number
+ *               description: Total number of pages
  *       example:
- *         email: user@example.com
- *         password: password123
- *     SignupRequest:
- *       type: object
- *       required:
- *         - email
- *         - password
- *       properties:
- *         email:
- *           type: string
- *           format: email
- *           description: The user email
- *         password:
- *           type: string
- *           format: password
- *           description: The user password
- *       example:
- *         email: user@example.com
- *         password: password123
- *     Error:
+ *         todos:
+ *           - id: 60d21b4667d0d8992e610c85
+ *             title: Complete project
+ *             description: Finish the project by the deadline
+ *             dueDate: 2023-06-30T00:00:00.000Z
+ *             completed: false
+ *             user: 60d21b4667d0d8992e610c85
+ *             createdAt: 2023-06-01T00:00:00.000Z
+ *             updatedAt: 2023-06-01T00:00:00.000Z
+ *         pagination:
+ *           total: 10
+ *           page: 1
+ *           limit: 10
+ *           pages: 1
+ *     DeleteResponse:
  *       type: object
  *       properties:
  *         message:
  *           type: string
- *           description: Error message
+ *           description: Success message
  *       example:
- *         message: Invalid credentials
+ *         message: Todo deleted successfully
  */
 
 /**
  * @swagger
  * tags:
- *   name: Auth
- *   description: User authentication endpoints
+ *   name: Todos
+ *   description: Todo management endpoints
  */
 
 /**
  * @swagger
- * /api/auth/signup:
+ * /api/todos:
  *   post:
- *     summary: Register a new user
- *     tags: [Auth]
+ *     summary: Create a new todo
+ *     tags: [Todos]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/SignupRequest'
+ *             $ref: '#/components/schemas/TodoCreate'
  *     responses:
  *       201:
- *         description: User created successfully
+ *         description: Todo created successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/AuthResponse'
+ *               $ref: '#/components/schemas/TodoResponse'
  *       400:
  *         description: Validation error
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Error'
- *       409:
- *         description: User already exists
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *   get:
+ *     summary: Get all todos for the authenticated user
+ *     tags: [Todos]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Number of todos per page
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Search term for title or description
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           default: dueDate
+ *         description: Field to sort by
+ *       - in: query
+ *         name: sortOrder
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *           default: asc
+ *         description: Sort order
+ *       - in: query
+ *         name: completed
+ *         schema:
+ *           type: boolean
+ *         description: Filter by completion status
+ *     responses:
+ *       200:
+ *         description: List of todos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/TodosResponse'
+ *       401:
+ *         description: Unauthorized
  *         content:
  *           application/json:
  *             schema:
@@ -145,23 +263,69 @@
 
 /**
  * @swagger
- * /api/auth/login:
- *   post:
- *     summary: Login a user
- *     tags: [Auth]
+ * /api/todos/{id}:
+ *   get:
+ *     summary: Get a todo by ID
+ *     tags: [Todos]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Todo ID
+ *     responses:
+ *       200:
+ *         description: Todo details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Todo'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       404:
+ *         description: Todo not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *   put:
+ *     summary: Update a todo
+ *     tags: [Todos]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Todo ID
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/LoginRequest'
+ *             $ref: '#/components/schemas/TodoUpdate'
  *     responses:
  *       200:
- *         description: Login successful
+ *         description: Todo updated successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/AuthResponse'
+ *               $ref: '#/components/schemas/TodoResponse'
  *       400:
  *         description: Validation error
  *         content:
@@ -169,7 +333,50 @@
  *             schema:
  *               $ref: '#/components/schemas/Error'
  *       401:
- *         description: Invalid credentials
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       404:
+ *         description: Todo not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *   delete:
+ *     summary: Delete a todo
+ *     tags: [Todos]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Todo ID
+ *     responses:
+ *       200:
+ *         description: Todo deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/DeleteResponse'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       404:
+ *         description: Todo not found
  *         content:
  *           application/json:
  *             schema:
