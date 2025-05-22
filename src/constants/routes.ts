@@ -7,4 +7,10 @@ export const API_ROUTES = {
     SIGNUP: "/signup",
     LOGIN: "/login",
   },
+
+  // Todo routes
+  TODOROUTE: {
+    BASE: "/todos",
+    BY_ID: "/:id",
+  },
 };
