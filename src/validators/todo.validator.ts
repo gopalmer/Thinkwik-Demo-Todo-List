@@ -1,6 +1,7 @@
 import { celebrate, Joi, Segments } from "celebrate";
 import { ERROR_MESSAGES } from "../constants";
 
+// This validator is used to validate the request body for creating a new todo
 export const validateTodoCreate = celebrate({
   [Segments.BODY]: Joi.object({
     title: Joi.string().trim().required().messages({
@@ -18,6 +19,7 @@ export const validateTodoCreate = celebrate({
   }),
 });
 
+// This validator is used to validate the request body for updating an existing todo
 export const validateTodoUpdate = celebrate({
   [Segments.BODY]: Joi.object({
     title: Joi.string().trim().optional().messages({

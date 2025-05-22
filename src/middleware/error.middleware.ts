@@ -6,6 +6,7 @@ export interface AppError extends Error {
   errors?: any[];
 }
 
+// Middleware to handle errors
 export const errorHandler = (
   err: AppError,
   req: Request,
@@ -38,6 +39,7 @@ export const errorHandler = (
   res.status(statusCode).json({ message });
 };
 
+// Custom error class for application errors
 export class AppError extends Error {
   statusCode: number;
 

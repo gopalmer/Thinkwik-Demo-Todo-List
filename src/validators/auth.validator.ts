@@ -1,5 +1,6 @@
 import { celebrate, Joi, Segments } from "celebrate";
 
+// This validator is used to validate the signup request body
 export const validateSignup = celebrate({
   [Segments.BODY]: Joi.object({
     email: Joi.string().email().required().messages({
@@ -13,6 +14,7 @@ export const validateSignup = celebrate({
   }),
 });
 
+// This validator is used to validate the login request body
 export const validateLogin = celebrate({
   [Segments.BODY]: Joi.object({
     email: Joi.string().email().required().messages({

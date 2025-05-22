@@ -5,6 +5,7 @@ import { API_ROUTES } from "../constants";
 
 const router = express.Router();
 
+// Routes
 router.post(API_ROUTES.AUTH.SIGNUP, validateSignup, signup);
 router.post(API_ROUTES.AUTH.LOGIN, validateLogin, login);
 
