@@ -21,53 +21,6 @@ Joi & Celebrate: Request validation
 Swagger/OpenAPI: API documentation
 Node-cron: Scheduled tasks
 
-
-Project Structure
-src/
-├── config/             # Configuration files
-│   ├── db.config.ts    # Database configuration
-│   ├── swagger.config.ts # Swagger configuration
-│   └── index.ts
-├── constants/          # Application constants
-│   ├── app.ts
-│   ├── http.ts
-│   ├── messages.ts
-│   ├── routes.ts
-│   └── index.ts
-├── controllers/        # Request handlers
-│   ├── auth.controller.ts
-│   ├── todo.controller.ts
-│   └── index.ts
-├── middleware/         # Express middleware
-│   ├── auth.middleware.ts
-│   ├── error.middleware.ts
-│   └── index.ts
-├── models/             # Mongoose models
-│   ├── auth.model.ts
-│   ├── todo.model.ts
-│   └── index.ts
-├── routes/             # API routes
-│   ├── auth.routes.ts
-│   ├── todo.routes.ts
-│   ├── swagger.routes.ts
-│   └── index.ts
-├── services/           # Business logic
-│   ├── auth.service.ts
-│   ├── todo.service.ts
-│   ├── cron.service.ts
-│   └── index.ts
-├── swagger/            # Swagger documentation
-│   ├── auth.swagger.ts
-│   └── todo.swagger.ts
-├── utils/              # Utility functions
-│   ├── cron.helper.ts
-│   └── index.ts
-├── validators/         # Request validators
-│   ├── auth.validator.ts
-│   ├── todo.validator.ts
-│   └── index.ts
-└── index.ts            # Application entry point
-
 Installation
 Prerequisites
 Node.js (v14 or higher)
@@ -78,3 +31,8 @@ Setup
 Clone the repository:
 git clone https://github.com/yourusername/todo-api.git
 cd todo-api
+
+add your env key
+MONGODB_URI = your_mongo_uri
+PORT = 3000
+JWT_SECRET = secret_key
